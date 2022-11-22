@@ -28,4 +28,14 @@ router.get('/getAll', async (req, res) => {
   }
 });
 
+// Get by ID 
+router.get('/getOne/:id', async (req, res) => {
+  try {
+    const data = await Model.findById(req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
