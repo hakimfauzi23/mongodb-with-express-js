@@ -28,11 +28,26 @@ router.get('/getAll', async (req, res) => {
   }
 });
 
-// Get by ID 
+// Get by ID
 router.get('/getOne/:id', async (req, res) => {
   try {
     const data = await Model.findById(req.params.id);
     res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Update by ID Method
+router.patch('/update/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+    const options = { new: true };
+
+    const result = await Model.findByIdAndUpdate(id, updatedData, options);
+
+    res.send(result);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
